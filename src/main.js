@@ -161,7 +161,7 @@ async function getMovieById(id) {
     const movieMediaTrailerVideo = document.createElement('div');
     movieMediaTrailerVideo.classList.add('movie__media__trailer__video');
     const movieMediaTrailerVideo_embed = document.createElement('embed');
-    movieMediaTrailerVideo_embed.setAttribute('src', `http://www.youtube.com/embed/${movieVideos.results[0].key}?autoplay=1`);
+    movieMediaTrailerVideo_embed.setAttribute('src', `https://www.youtube.com/embed/${movieVideos.results[0].key}?autoplay=1`);
     movieMediaTrailerVideo.appendChild(movieMediaTrailerVideo_embed);
     movieMediaTrailer.appendChild(movieMediaTrailerVideo);
     /* MOVIE_MEDIA_GALLERY */
