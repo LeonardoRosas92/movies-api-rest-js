@@ -7,8 +7,11 @@ $font-nav-input: 1.3rem;
     width: 100%;
     height: 70px;
     border: none;
-    @include dFlex(space-between, center, row wrap);
+    display: flex;
+
     color: #0096C7;
+    display: flex;
+    justify-content: space-between;
     &::before{
         content: '';
         position: absolute;
@@ -19,7 +22,8 @@ $font-nav-input: 1.3rem;
         background: rgba($color: #000000, $alpha: 0.7);
     }
     &__left{
-        width: 200px;
+        width: 30%;
+        height: 100%;
         position: relative;
         margin: 0 20px;
         @include dFlex(flex-start, center, row wrap);
@@ -33,7 +37,9 @@ $font-nav-input: 1.3rem;
         }
     }
     &__right{
-        @include dFlex(flex-start, center, row wrap);
+        width: 70%;
+        height: 100%;
+        @include dFlex(flex-end, center, row wrap);
         i{
             font-size: $font-nav;
             margin-right: 30px;
@@ -46,7 +52,6 @@ $font-nav-input: 1.3rem;
         }
         &__search{
             position: relative;
-            width: 300px;
             @include dFlex(flex-start, center, row wrap);
             i{
                 position: absolute;
@@ -62,8 +67,7 @@ $font-nav-input: 1.3rem;
             }
             input{
                 @include setFont('Roboto', $font-nav-input, left);
-                padding-left: 40px;
-                width: 100%;
+                padding-left: 30px;
                 height: 1.7rem;
                 margin-right: 20px;
                 border-radius: 5px;

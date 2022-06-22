@@ -9,7 +9,7 @@ btnSearch.addEventListener('click', () => {
     location.hash = `#search=${inputSearch.value}`;
 });
 
-inputSearch.addEventListener("keyup", function(event) {
+inputSearch.addEventListener("keyup", function (event) {
     event.preventDefault();
     if (event.keyCode === 13) {
         location.hash = `#search=${inputSearch.value}`;
@@ -18,9 +18,7 @@ inputSearch.addEventListener("keyup", function(event) {
 
 function navigator() {
     console.log({ location });
-    if (location.hash.startsWith('#trends')) {
-        trendsPage();
-    } else if (location.hash.startsWith('#search=')) {
+    if (location.hash.startsWith('#search=')) {
         searchPage();
     } else if (location.hash.startsWith('#movie=')) {
         moviePage();
@@ -32,14 +30,11 @@ function navigator() {
     smoothscroll();
 }
 
-function trendsPage() {
-    console.log('Trends!!');
-}
 function searchPage() {
     console.log('categories!!');
     const [_, title] = location.hash.split('=');
-    getMoviesByName(title.replace('%20',' '));
-    inputSearch.value = title.replace('%20',' ');
+    getMoviesByName(title.replace('%20', ' '));
+    inputSearch.value = title.replace('%20', ' ');
     navigation.classList.remove('inactive');
     back.classList.remove('inactive');
     header.classList.add('inactive');
@@ -66,7 +61,7 @@ function categoriesPage() {
     console.log('categories!!');
     const [_, categoryData] = location.hash.split('=');
     const [categoryId, categoryName] = categoryData.split('-');
-    getMoviesByCategory(categoryId, categoryName.replace('%20',' '));
+    getMoviesByCategory(categoryId, categoryName.replace('%20', ' '));
     navigation.classList.remove('inactive');
     back.classList.remove('inactive');
     header.classList.add('inactive');
