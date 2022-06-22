@@ -1,0 +1,75 @@
+$font-nav: 2.3rem;
+$font-nav-input: 1.3rem;
+.navigation{
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    width: 100%;
+    height: 70px;
+    border: none;
+    @include dFlex(space-between, center, row wrap);
+    color: #0096C7;
+    &::before{
+        content: '';
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        top: 0;
+        left: 0;
+        background: rgba($color: #000000, $alpha: 0.7);
+    }
+    &__left{
+        width: 200px;
+        position: relative;
+        margin: 0 20px;
+        @include dFlex(flex-start, center, row wrap);
+        &__logo{
+            margin: 0 10px;
+            @include setFont('Roboto', $font-nav, center);
+        }
+        &__text{
+            font-size: $font-nav;
+            letter-spacing: 2px;
+        }
+    }
+    &__right{
+        @include dFlex(flex-start, center, row wrap);
+        i{
+            font-size: $font-nav;
+            margin-right: 30px;
+            opacity: .7;
+            transition: all .3s;
+            &:hover{
+                opacity: 1;
+                cursor: pointer;
+            }
+        }
+        &__search{
+            position: relative;
+            width: 300px;
+            @include dFlex(flex-start, center, row wrap);
+            i{
+                position: absolute;
+                z-index: 1;
+                margin-left: 5px;
+                font-size: 1.3rem;
+                opacity: .4;
+                transition: all .3s;
+                &:hover{
+                    opacity: 1;
+                    cursor: pointer;
+                }
+            }
+            input{
+                @include setFont('Roboto', $font-nav-input, left);
+                padding-left: 40px;
+                width: 100%;
+                height: 1.7rem;
+                margin-right: 20px;
+                border-radius: 5px;
+                border: none;
+            }
+        }
+        
+    }
+}

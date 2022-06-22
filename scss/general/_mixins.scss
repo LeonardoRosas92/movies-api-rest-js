@@ -1,0 +1,14 @@
+/* Flexbox */
+@mixin dFlex($justify, $align, $flow) {
+    display: flex;
+    justify-content: $justify;
+    align-items: $align;
+    flex: $flow;
+}
+
+/* setFont */
+@mixin setFont($font, $size, $align) {
+    font-family: $font;
+    font-size: $size;
+    text-align: $align;
+}

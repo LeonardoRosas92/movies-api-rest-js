@@ -1,14 +1,151 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="css/styles.css">
-    <title>Document</title>
+    <title>Movies</title>
 </head>
+
 <body>
+    <!-- NAV -->
+    <nav id="navigation" class="navigation inactive">
+        <div class="navigation__left">
+            <span class="navigation__left__logo fa-solid fa-film"></span>
+            <h2 class="navigation__left__text">CinemaDB</h2>
+        </div>
+        <div class="navigation__right">
+            <i class="fa-solid fa-house" onclick="homePage()"></i>
+            <div class="navigation__right__search">
+                <i class="fa-solid fa-magnifying-glass" id="btnSearch"></i>
+                <input id="inputSearch" type="text" placeholder="Search">
+            </div>
+        </div>
+    </nav>
+    <!-- BACK -->
+    <div id="back" class="back">
+        <span class="fa-solid fa-angle-left"> Back </span>
+    </div>
+    <!-- HEADER -->
+    <header id="header" class="header inactive">
+        <h1 class="header__title">Bienvenidos!!!</h1>
+        <h2 class="header__subtitle">Millones de peliculas al alcance de tu mano!!</h2>
+    </header>
+    <!-- TRENDING -->
+    <section id="trending" class="trending inactive">
+        <!-- 
+        <div class="trending__title">
+            <h2>¡The most popular!</h2>
+        </div>
+        <div class="trending__cards">
+            <div class="trending__cards__card">
+                <div class="trending__cards__card__img">
+                    <img src="https://image.tmdb.org/t/p/w500/kAVRgw7GgK1CfYEJq8ME6EvRIgU.jpg" alt="">
+                </div>
+                <div class="trending__cards__card__info">
+                    <p>Jurassic World Dominion Dominion Dominion</p>
+                    <p>2022-06-01</p>
+                </div>
+            </div>
+        </div> -->
+    </section>
+    <!-- MOVIES -->
+    <section id="movies" class="movies">
+
+    </section>
+    <!-- MOVIE -->
+    <section id="movie" class="movie inactive">
+        <div class="movie__info">
+            <div class="movie__info__img">
+                <img src="https://image.tmdb.org/t/p/w300/vpILbP9eOQEtdQgl4vgjZUNY07r.jpg" alt="">
+            </div>
+            <div class="movie__info__text">
+                <h1>Lightyear</h1>
+                <div class="movie__info__text__release">
+                    <h2>2022-06-15</h2>
+                    <div>
+                        <li><span id="genre-16"></span> Animation</li>
+                        <li><span id="genre-878"></span> Science Fiction</li>
+                        <li><span id="genre-12"></span> Adventure</li>
+                        <li><span id="genre-28"></span> Action</li>
+                        <li><span id="genre-10751"></span> Family</li>
+                    </div>
+                </div>
+                <h2>Overview:</h2>
+                <p>Legendary Space Ranger Buzz Lightyear embarks on an intergalactic adventure alongside a group of
+                    ambitious recruits and his robot companion Sox.</p>
+                <h2>7.0 <span class="fa-solid fa-star"></span></h2>
+            </div>
+        </div>
+        <div class="movie__media">
+            <div class="movie__media__trailer">
+                <div class="movie__media__trailer__title">
+                    <h2><span class="fa-solid fa-play"></span> Play Trailer</h2>
+                </div>
+                <div class="movie__media__trailer__video">
+                    <embed src="http://www.youtube.com/embed/DmZGrhz4tAY?autoplay=1">
+                    </embed>
+                </div>
+            </div>
+            <div class="movie__media__gallery">
+                <div class="movie__media__gallery__title">
+                    <h2><span class="fa-solid fa-image"></span> Gallery</h2>
+
+                </div>
+                <div class="movie__media__gallery__img">
+                    <img src="https://image.tmdb.org/t/p/w300/vpILbP9eOQEtdQgl4vgjZUNY07r.jpg" alt="">
+                    <img src="https://image.tmdb.org/t/p/w300/vpILbP9eOQEtdQgl4vgjZUNY07r.jpg" alt="">
+                    <img src="https://image.tmdb.org/t/p/w300/vpILbP9eOQEtdQgl4vgjZUNY07r.jpg" alt="">
+                    <img src="https://image.tmdb.org/t/p/w300/vpILbP9eOQEtdQgl4vgjZUNY07r.jpg" alt="">
+                </div>
+            </div>
+        </div>
+        <div class="movie__cast">
+            <div class="movie__cast__title">
+                <h2> Cast </h2>
+            </div>
+            <div class="movie__cast__cards">
+                <div class="movie__cast__cards__card">
+                    <div class="movie__cast__cards__img">
+                        <img src="https://image.tmdb.org/t/p/w300/3bOGNsHlrswhyW79uvIHH1V43JI.jpg" alt="">
+                    </div>
+                    <div class="movie__cast__cards__name">
+                        <p>Chris Evans</p>
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+    </section>
+    <section id="categories" class="categories inactive">
+        <!-- <div class="categories__title">
+            <h2>Categories</h2>
+        </div> 
+        <div class="categories__content">
+            <div id="genre-28" class="categories__content__category">
+                <img src="img/gengeMovies/Action.png" alt="">
+                <p>Action</p>
+            </div>
+        </div>
+        -->
+    </section>
+    <footer id="footer" class="footer inactive">
+        <div>
+            <span class="fa-brands fa-html5"></span>
+            <span class="fa-brands fa-node-js"></span>
+            <span class="fa-brands fa-sass"></span>
+        </div>
+        <p>All rights reserved © 2022</p>
+    </footer>
+    <!-- Scripts -->
+    <script src="https://kit.fontawesome.com/90e4a853a6.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script src="src/secrets.js"></script>
+    <script src="src/nodes.js"></script>
     <script src="src/main.js"></script>
+    <script src="src/navigation.js"></script>
 </body>
+
 </html>

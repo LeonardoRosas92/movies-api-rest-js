@@ -1,0 +1,53 @@
+.header {
+    position: relative;
+    width: 100%;
+    height: 70vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding-left: 10%;
+    background: url('../img/header.jpeg');
+    background-size: cover;
+    background-position: top;
+    animation: header 30s infinite ease;
+    *{
+        position: relative;
+    }
+    &::before { 
+        content: '';
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        top: 0;
+        left: 0;
+        background: rgba($color: #000000, $alpha: 0.4);
+        
+    }
+
+    &__title {
+        width: 100%;
+        font-family: 'Roboto';
+        font-size: 90px;
+        color: #48CAE4;
+        letter-spacing: 3px;
+    }
+
+    &__subtitle {
+        margin-top: 30px;
+        width: 100%;
+        font-size: 30px;
+        color: #48CAE4;
+    }
+}
+
+@keyframes header{
+    0%{
+        background-position: top;
+    }
+    50%{
+        background-position: bottom;
+    }
+    100%{
+        background-position: top;
+    }
+}
