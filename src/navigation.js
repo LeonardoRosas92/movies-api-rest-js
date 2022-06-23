@@ -33,8 +33,8 @@ function navigator() {
 function searchPage() {
     console.log('categories!!');
     const [_, title] = location.hash.split('=');
-    getMoviesByName(title.replace('%20', ' '));
-    inputSearch.value = title.replace('%20', ' ');
+    getMoviesByName(title.replaceAll('%20', ' '));
+    inputSearch.value = title.replaceAll('%20', ' ');
     navigation.classList.remove('inactive');
     back.classList.remove('inactive');
     header.classList.add('inactive');

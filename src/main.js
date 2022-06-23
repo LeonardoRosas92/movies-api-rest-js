@@ -75,7 +75,7 @@ async function getMoviesByName(title) {
         }
     });
     const moviesResult = data.results;
-    createMovies(moviesResult, movies, `Results for "${title}"`);
+    createMovies(moviesResult, movies, `"${title}"`);
 }
 
 async function getMovieById(id) {

@@ -81,7 +81,7 @@
             &__search {
                 input {
                     display: inline-block !important;
-                    font-size: 1.3rem !important;
+                    font-size: 1rem !important;
                     width: 90% !important;
                     margin-right: 10px !important; 
                 }
@@ -91,10 +91,18 @@
     }
     .header {
         &__title {
-            font-size: 50px !important;
+            font-size: 35px !important;
         }
         &__subtitle {
             font-size: 20px !important;
+        }
+    }
+    .trending {
+        &__title {
+            h2{
+                text-align: center !important;
+                font-size: 25px !important;
+            }
         }
     }
     .categories {
@@ -103,6 +111,13 @@
             &__category {
                 width: 130px !important;
                 height: 40px !important;
+            }
+        }
+    }
+    .movies {
+        &__title {
+            h2 {
+                font-size: 20px !important;
             }
         }
     }
