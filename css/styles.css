@@ -336,6 +336,7 @@ li {
   padding: 20px;
   display: flex;
   flex-direction: column;
+  margin-bottom: 10px;
 }
 .categories__title {
   width: 100%;

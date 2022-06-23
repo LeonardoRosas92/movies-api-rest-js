@@ -17,12 +17,13 @@ inputSearch.addEventListener("keyup", function (event) {
 });
 
 function navigator() {
-    console.log({ location });
     if (location.hash.startsWith('#search=')) {
+        movie.innerHTML = "";
         searchPage();
     } else if (location.hash.startsWith('#movie=')) {
         moviePage();
     } else if (location.hash.startsWith('#category=')) {
+        movie.innerHTML = "";
         categoriesPage();
     } else {
         homePage();
@@ -31,7 +32,6 @@ function navigator() {
 }
 
 function searchPage() {
-    console.log('categories!!');
     const [_, title] = location.hash.split('=');
     getMoviesByName(title.replaceAll('%20', ' '));
     inputSearch.value = title.replaceAll('%20', ' ');
@@ -45,7 +45,6 @@ function searchPage() {
     footer.classList.remove('inactive');
 }
 function moviePage() {
-    console.log('Movie!!');
     const [_, idMovie] = location.hash.split('=');
     getMovieById(idMovie);
     navigation.classList.remove('inactive');
@@ -58,7 +57,6 @@ function moviePage() {
     footer.classList.remove('inactive');
 }
 function categoriesPage() {
-    console.log('categories!!');
     const [_, categoryData] = location.hash.split('=');
     const [categoryId, categoryName] = categoryData.split('-');
     getMoviesByCategory(categoryId, categoryName.replace('%20', ' '));
@@ -73,8 +71,8 @@ function categoriesPage() {
 }
 function homePage() {
     location.hash = `#home`;
-    console.log('Home');
     inputSearch.value = '';
+    movie.innerHTML="";
     getTrendingMoviesPreview();
     getCategoriesPreview();
     navigation.classList.remove('inactive');
