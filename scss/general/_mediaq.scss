@@ -104,6 +104,11 @@
                 font-size: 25px !important;
             }
         }
+        &__cards {
+            &::-webkit-scrollbar {
+                display: none !important;
+            }
+        }
     }
     .categories {
         padding: 5px !important;
@@ -148,11 +153,19 @@
 
             &__gallery {
                 width: 100% !important;
+                &__img{
+                    &::-webkit-scrollbar {
+                        display: none !important;
+                    }
+                }
             }
         }
 
         &__cast {
             &__cards {
+                &::-webkit-scrollbar {
+                    display: none !important;
+                }
                 &__img {
                     img {
                         width: 100px !important;

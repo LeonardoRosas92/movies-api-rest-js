@@ -75,6 +75,9 @@ li {
     text-align: center !important;
     font-size: 25px !important;
   }
+  .trending__cards::-webkit-scrollbar {
+    display: none !important;
+  }
   .categories {
     padding: 5px !important;
   }
@@ -108,6 +111,12 @@ li {
   }
   .movie__media__gallery {
     width: 100% !important;
+  }
+  .movie__media__gallery__img::-webkit-scrollbar {
+    display: none !important;
+  }
+  .movie__cast__cards::-webkit-scrollbar {
+    display: none !important;
   }
   .movie__cast__cards__img img {
     width: 100px !important;

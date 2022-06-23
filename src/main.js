@@ -89,8 +89,10 @@ async function getMovieById(id) {
     /* MOVIE__INFO */
     const movieInfo = document.createElement('div');
     movieInfo.classList.add('movie__info');
-    movieInfo.style.background = `url(https://image.tmdb.org/t/p/w500/${movieResult.backdrop_path}), rgba(190, 186, 186, 0.6)`;
-    movieInfo.style.backgroundSize = "cover";
+    if (movieResult.backdrop_path) {
+        movieInfo.style.background = `url(https://image.tmdb.org/t/p/w500/${movieResult.backdrop_path}), rgba(190, 186, 186, 0.6)`;
+        movieInfo.style.backgroundSize = "cover";
+    }
 
     /* MOVIE__INFO__IMG */
     const movieInfoImg = document.createElement('div');
@@ -134,7 +136,7 @@ async function getMovieById(id) {
     movieInfoText_p.innerHTML = movieResult.overview;
     movieInfoText.appendChild(movieInfoText_p);
 
-    
+
     const movieInfoTextProduction_h2_2 = document.createElement('h2');
     movieInfoTextProduction_h2_2.innerHTML = movieResult.vote_average;
     const movieInfoTextProduction_h2_span = document.createElement('span');
@@ -150,76 +152,83 @@ async function getMovieById(id) {
     /* MOVIE_MEDIA_TRAILER */
     const movieMediaTrailer = document.createElement('div');
     movieMediaTrailer.classList.add('movie__media__trailer');
-    const movieMediaTrailerTitle = document.createElement('div');
-    movieMediaTrailerTitle.classList.add('movie__media__trailer__title');
-    const movieMediaTrailerTitle_h2 = document.createElement('h2');
-    movieMediaTrailerTitle_h2.innerHTML = "Trailer";
-    movieMediaTrailerTitle.appendChild(movieMediaTrailerTitle_h2);
-    movieMediaTrailer.appendChild(movieMediaTrailerTitle);
-    movieMedia.appendChild(movieMediaTrailer);
+    if (movieVideos.results.length > 0) {
+        const movieMediaTrailerTitle = document.createElement('div');
+        movieMediaTrailerTitle.classList.add('movie__media__trailer__title');
+        const movieMediaTrailerTitle_h2 = document.createElement('h2');
+        movieMediaTrailerTitle_h2.innerHTML = "Trailer";
+        movieMediaTrailerTitle.appendChild(movieMediaTrailerTitle_h2);
+        movieMediaTrailer.appendChild(movieMediaTrailerTitle);
+        movieMedia.appendChild(movieMediaTrailer);
+        const movieMediaTrailerVideo = document.createElement('div');
+        movieMediaTrailerVideo.classList.add('movie__media__trailer__video');
+        const movieMediaTrailerVideo_embed = document.createElement('embed');
+        movieMediaTrailerVideo_embed.setAttribute('src', `https://www.youtube.com/embed/${movieVideos.results[0].key}?autoplay=1`);
+        movieMediaTrailerVideo.appendChild(movieMediaTrailerVideo_embed);
+        movieMediaTrailer.appendChild(movieMediaTrailerVideo);
+    }
 
-    const movieMediaTrailerVideo = document.createElement('div');
-    movieMediaTrailerVideo.classList.add('movie__media__trailer__video');
-    const movieMediaTrailerVideo_embed = document.createElement('embed');
-    movieMediaTrailerVideo_embed.setAttribute('src', `https://www.youtube.com/embed/${movieVideos.results[0].key}?autoplay=1`);
-    movieMediaTrailerVideo.appendChild(movieMediaTrailerVideo_embed);
-    movieMediaTrailer.appendChild(movieMediaTrailerVideo);
     /* MOVIE_MEDIA_GALLERY */
     const movieMediaGallery = document.createElement('div');
     movieMediaGallery.classList.add('movie__media__gallery');
-    const movieMediaGalleryTitle = document.createElement('div');
-    movieMediaGalleryTitle.classList.add('movie__media__gallery__title');
-    const movieMediaGalleryTitle_h2 = document.createElement('h2');
-    movieMediaGalleryTitle_h2.innerHTML = "Posters";
-    movieMediaGalleryTitle.appendChild(movieMediaGalleryTitle_h2);
-    movieMediaGallery.appendChild(movieMediaGalleryTitle);
+    if (movieImages.posters.length > 0) {
+        const movieMediaGalleryTitle = document.createElement('div');
+        movieMediaGalleryTitle.classList.add('movie__media__gallery__title');
+        const movieMediaGalleryTitle_h2 = document.createElement('h2');
+        movieMediaGalleryTitle_h2.innerHTML = "Posters";
+        movieMediaGalleryTitle.appendChild(movieMediaGalleryTitle_h2);
+        movieMediaGallery.appendChild(movieMediaGalleryTitle);
 
-    const movieMediaGalleryImg = document.createElement('div');
-    movieMediaGalleryImg.classList.add('movie__media__gallery__img');
-    movieImages.posters.forEach(poster => {
-        if (poster.iso_639_1 === 'en') {
-            const imgGallery = document.createElement('img');
-            imgGallery.setAttribute('src', 'https://image.tmdb.org/t/p/w500/' + poster.file_path);
-            movieMediaGalleryImg.appendChild(imgGallery);
-        }
-    });
-    movieMediaGallery.appendChild(movieMediaGalleryImg);
+        const movieMediaGalleryImg = document.createElement('div');
+        movieMediaGalleryImg.classList.add('movie__media__gallery__img');
+        movieImages.posters.forEach(poster => {
+            if (poster.iso_639_1 === 'en' || poster.iso_639_1 === null) {
+                const imgGallery = document.createElement('img');
+                imgGallery.setAttribute('src', 'https://image.tmdb.org/t/p/w500/' + poster.file_path);
+                movieMediaGalleryImg.appendChild(imgGallery);
+            }
+        });
+        movieMediaGallery.appendChild(movieMediaGalleryImg);
+    }
+
     movieMedia.appendChild(movieMediaGallery);
 
     /* MOVIE_CAST */
     const movieCast = document.createElement('div');
     movieCast.classList.add('movie__cast');
+    if (movieCastResult.cast.length > 0) {
+        const movieCastTitle = document.createElement('div');
+        movieCastTitle.classList.add('movie__cast__title');
+        const movieCastTitle_h2 = document.createElement('h2');
+        movieCastTitle_h2.innerHTML = "Cast"
+        movieCastTitle.appendChild(movieCastTitle_h2);
+        movieCast.appendChild(movieCastTitle);
 
-    const movieCastTitle = document.createElement('div');
-    movieCastTitle.classList.add('movie__cast__title');
-    const movieCastTitle_h2 = document.createElement('h2');
-    movieCastTitle_h2.innerHTML = "Cast"
-    movieCastTitle.appendChild(movieCastTitle_h2);
-    movieCast.appendChild(movieCastTitle);
+        const movieCastCards = document.createElement('div');
+        movieCastCards.classList.add('movie__cast__cards');
+        movieCastResult.cast.forEach(cast => {
+            if (cast.profile_path) {
+                const movieCastCardsCard = document.createElement('div');
+                movieCastCardsCard.classList.add('movie__cast__cards__card');
+                const movieCastCardsCardImg = document.createElement('div');
+                movieCastCardsCardImg.classList.add('movie__cast__cards__img');
+                const movieCastCardsCardImg_img = document.createElement('img');
+                movieCastCardsCardImg_img.setAttribute('src', 'https://image.tmdb.org/t/p/w300/' + cast.profile_path);
+                movieCastCardsCardImg.appendChild(movieCastCardsCardImg_img);
+                movieCastCardsCard.appendChild(movieCastCardsCardImg);
 
-    const movieCastCards = document.createElement('div');
-    movieCastCards.classList.add('movie__cast__cards');
-    movieCastResult.cast.forEach(cast => {
-        if (cast.profile_path) {
-            const movieCastCardsCard = document.createElement('div');
-            movieCastCardsCard.classList.add('movie__cast__cards__card');
-            const movieCastCardsCardImg = document.createElement('div');
-            movieCastCardsCardImg.classList.add('movie__cast__cards__img');
-            const movieCastCardsCardImg_img = document.createElement('img');
-            movieCastCardsCardImg_img.setAttribute('src', 'https://image.tmdb.org/t/p/w300/' + cast.profile_path);
-            movieCastCardsCardImg.appendChild(movieCastCardsCardImg_img);
-            movieCastCardsCard.appendChild(movieCastCardsCardImg);
+                const movieCastCardsName = document.createElement('div');
+                movieCastCardsName.classList.add('movie__cast__cards__name');
+                const movieCastCardsName_p = document.createElement('p');
+                movieCastCardsName_p.innerHTML = cast.name;
+                movieCastCardsName.appendChild(movieCastCardsName_p);
+                movieCastCardsCard.appendChild(movieCastCardsName);
+                movieCastCards.appendChild(movieCastCardsCard);
+            }
+        });
+        movieCast.appendChild(movieCastCards);
+    }
 
-            const movieCastCardsName = document.createElement('div');
-            movieCastCardsName.classList.add('movie__cast__cards__name');
-            const movieCastCardsName_p = document.createElement('p');
-            movieCastCardsName_p.innerHTML = cast.name;
-            movieCastCardsName.appendChild(movieCastCardsName_p);
-            movieCastCardsCard.appendChild(movieCastCardsName);
-            movieCastCards.appendChild(movieCastCardsCard);
-        }
-    });
-    movieCast.appendChild(movieCastCards);
 
     movie.appendChild(movieInfo);
     movie.appendChild(movieMedia);
