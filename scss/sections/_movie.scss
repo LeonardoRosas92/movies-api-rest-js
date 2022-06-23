@@ -64,7 +64,8 @@
 
             &__release {
                 display: flex;
-                align-items: center;
+                align-items: flex-start;
+                flex-direction: column;
                 gap: 10px;
 
                 h2 {
@@ -73,6 +74,7 @@
 
                 div {
                     display: flex;
+                    flex-wrap: wrap;
                     gap: 10px;
 
                     li {

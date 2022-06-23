@@ -556,7 +556,8 @@ footer div span {
 }
 .movie__info__text__release {
   display: flex;
-  align-items: center;
+  align-items: flex-start;
+  flex-direction: column;
   gap: 10px;
 }
 .movie__info__text__release h2 {
@@ -564,6 +565,7 @@ footer div span {
 }
 .movie__info__text__release div {
   display: flex;
+  flex-wrap: wrap;
   gap: 10px;
 }
 .movie__info__text__release div li {
@@ -710,7 +712,6 @@ footer div span {
   margin-top: 70px;
 }
 .movies__title {
-  border: 1px solid red;
   position: relative;
   width: 100%;
   height: 10%;
@@ -719,7 +720,6 @@ footer div span {
   padding: 10px 0;
 }
 .movies__title h2 {
-  border: 1px solid red;
   font-size: 30px;
   letter-spacing: 5px;
   color: #48CAE4;
