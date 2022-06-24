@@ -9,13 +9,28 @@ const api = axios.create({
     }
 });
 
-function createMovies(movies, container, title) {
-    container.innerHTML = "";
-    const divContainerTitle = document.createElement('div');
-    divContainerTitle.classList.add(`${container.id}__title`);
-    const h2 = document.createElement('h2');
-    h2.innerHTML = title;
-    divContainerTitle.appendChild(h2);
+/* UTILS */
+const lazyLoader = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+            const url = entry.target.getAttribute('data-img')
+            entry.target.setAttribute('src', url);
+        }
+    });
+});
+
+function createMovies(movies, container, title, { lazyLoad = false, clean = false } = {}) {
+    if (clean) {
+        container.innerHTML = '';
+    }
+    if (title) {
+        const divContainerTitle = document.createElement('div');
+        divContainerTitle.classList.add(`${container.id}__title`);
+        const h2 = document.createElement('h2');
+        h2.innerHTML = title;
+        divContainerTitle.appendChild(h2);
+        container.appendChild(divContainerTitle);
+    }
     const divContainerCards = document.createElement('div');
     divContainerCards.classList.add(`${container.id}__cards`);
     movies.forEach(movie => {
@@ -45,37 +60,96 @@ function createMovies(movies, container, title) {
             divContainerCardsInfo.appendChild(pTitle);
             divContainerCardsInfo.appendChild(pRelease);
             divContainerCardsCard.appendChild(divContainerCardsInfo);
-            divContainerCards.appendChild(divContainerCardsCard);
+            if (clean) {
+                divContainerCards.appendChild(divContainerCardsCard);
+            }else{
+                let divContainerCardsPaginated = document.querySelector('.movies__cards');
+                divContainerCardsPaginated.appendChild(divContainerCardsCard);
+            }
+
+            if (lazyLoad) {
+                lazyLoader.observe(divContainerCardsCard);
+            }
         }
     });
-    container.appendChild(divContainerTitle);
     container.appendChild(divContainerCards);
 }
 
 async function getTrendingMoviesPreview() {
     const { data } = await api('/trending/movie/day');
     const movies = data.results;
-    createMovies(movies, trending, '¡The most popular!');
+    createMovies(movies, trending, '¡The most popular!', { lazyLoad : false, clean : true } );
 }
 
 async function getMoviesByCategory(id, categoryName) {
+    page = 1;
     const { data } = await api('/discover/movie', {
         params: {
             with_genres: id
         }
     });
     const moviesResult = data.results;
-    createMovies(moviesResult, movies, categoryName);
+    maxPage = data.total_pages;
+    createMovies(moviesResult, movies, categoryName, { lazyLoad : true, clean : true } );
 }
 
+function getPaginatedMoviesByCategory(id) {
+    return async function () {
+        const {
+            scrollTop,
+            scrollHeight,
+            clientHeight
+        } = document.documentElement;
+
+        const scrollIsBottom = (scrollTop + clientHeight) >= (scrollHeight - 15);
+        const pageIsNotMax = page < maxPage;
+        if (scrollIsBottom && pageIsNotMax) {
+            page++;
+            const { data } = await api('/discover/movie', {
+                params: {
+                    with_genres: id,
+                    page
+
+                }
+            });
+            const moviesResult = data.results;
+            createMovies(moviesResult, movies, null ,{ lazyLoad: true, clean: false });
+        }
+    }
+}
 async function getMoviesByName(title) {
+    page = 1;
     const { data } = await api('/search/movie', {
         params: {
             query: decodeURIComponent(title)
         }
     });
     const moviesResult = data.results;
-    createMovies(moviesResult, movies, `"${title}"`);
+    maxPage = data.total_pages;
+    createMovies(moviesResult, movies, `"${title}"`,{ lazyLoad: true, clean: true });
+}
+function getPaginatedMoviesByName(title){
+    return async function () {
+        const {
+            scrollTop,
+            scrollHeight,
+            clientHeight
+        } = document.documentElement;
+
+        const scrollIsBottom = (scrollTop + clientHeight) >= (scrollHeight - 15);
+        const pageIsNotMax = page < maxPage;
+        if (scrollIsBottom && pageIsNotMax) {
+            page++;
+            const { data } = await api('/search/movie', {
+                params: {
+                    query: decodeURIComponent(title),
+                    page
+                }
+            });
+            const moviesResult = data.results;
+            createMovies(moviesResult, movies, null ,{ lazyLoad: true, clean: false });
+        }
+    }
 }
 
 async function getMovieById(id) {
@@ -182,7 +256,7 @@ async function getMovieById(id) {
         const movieMediaGalleryImg = document.createElement('div');
         movieMediaGalleryImg.classList.add('movie__media__gallery__img');
         movieImages.posters.forEach(poster => {
-            if (poster.iso_639_1 === 'en' || poster.iso_639_1 === null) {
+            if (poster.iso_639_1 === 'en' || poster.iso_639_1 === null || poster.iso_639_1 === 'es') {
                 const imgGallery = document.createElement('img');
                 imgGallery.setAttribute('src', 'https://image.tmdb.org/t/p/w500/' + poster.file_path);
                 movieMediaGalleryImg.appendChild(imgGallery);
@@ -267,6 +341,5 @@ async function getCategoriesPreview() {
         categoriesContent.appendChild(categoriesContentCategory);
     });
     categories.appendChild(categoriesContent);
-    console.log(categories);
 }
 
